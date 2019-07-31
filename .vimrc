@@ -88,9 +88,9 @@ map <F7> :colorscheme<CR>
 "a.vim"
 map <C-y> <S-:>A<CR>
 "水平"
-map 8 <S-:>AV<CR> 
+"map 8 <S-:>AV<CR> 
 "垂直"
-map 9 <S-:>AS<CR>
+"map 9 <S-:>AS<CR>
 
 "ctrlp"
 "按文件名进行搜索
