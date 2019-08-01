@@ -2,7 +2,9 @@ syntax enable "高亮
 colorscheme mon2
 ""colorscheme evening
 "set foldmethod=syntax
-set mouse=a
+"set mouse=a
+
+"在新机器配置时，要删除vim中plugged中的插件，再重新安装
 
 call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/yongge666/change-colorscheme.git'
@@ -18,6 +20,13 @@ set cmdheight=1
 "  :PluginSearch foo - 搜索 foo ; 追加 `!` 清除本地缓存
 "  :PlugClean      - 清除未使用插件,需要确认; 追加 `!`
 " 自动批准移除未使用插件
+
+"显示正在编译的文件名"
+set statusline+=%f
+set laststatus=2
+
+"忽略大小写"
+set ic
 
 map <F5> <S-:>tnext<CR>
 map <F6> <S-:>%s/\r\+$//e<CR>
@@ -75,7 +84,8 @@ endfunction
 "ctags
 map <C-d> g]
 map <C-j> <C-t>
-set tags=/home/xing/gamecode/svr_source/tags
+""set tags=/home/xing/gamecode/svr_source/tags
+set tags=/data/lsfz_test_s001a/server/svr_source/tags
 "关声音
 set vb t_vb=
 
@@ -88,9 +98,9 @@ map <F7> :colorscheme<CR>
 "a.vim"
 map <C-y> <S-:>A<CR>
 "水平"
-"map 8 <S-:>AV<CR> 
+""map 8 <S-:>AV<CR> 
 "垂直"
-"map 9 <S-:>AS<CR>
+""map 9 <S-:>AS<CR>
 
 "ctrlp"
 "按文件名进行搜索
