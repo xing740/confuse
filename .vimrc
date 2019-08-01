@@ -2,7 +2,7 @@ syntax enable "高亮
 colorscheme mon2
 ""colorscheme evening
 "set foldmethod=syntax
-"set mouse=a
+dfdf"set mouse=a
 
 call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/yongge666/change-colorscheme.git'
