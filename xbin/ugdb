@@ -4,6 +4,7 @@
 
 curPwd=$(pwd)
 curPwd="$curPwd""/gg"
+
 info=($(ps aux|grep $curPwd |awk '{print $2 "\t" $11}'))
 
 if [ ${info[1]} == $curPwd ]
@@ -13,7 +14,7 @@ else
     ./start.sh
     if [ $? != 0 ]
     then
-        echo "===只能在gg所在目录使用==="
+        echo "===只能在server目录使用==="
         exit
     fi
     $0
