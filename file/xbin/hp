@@ -1,0 +1,145 @@
+#!/bin/bash
+path0="/data"
+path1="/fytx2_test_"
+path2="/server"
+path3="/svr_source/game"
+
+if [ $# != 1 ]
+then 
+    echo "==需要1个参数 或 hp -h 查看帮助=="
+    exit
+fi
+
+#避免source时 全局变量保存
+unset str
+unset num
+
+#提取出数字和字母
+param=$1
+
+for(( i = 0; i < ${#param}; i = i + 1))
+do 
+    tmp=${param:i:1}
+    expr 1 + $tmp &> /dev/null
+    if [ $? == 0 ]
+    then
+        num="${num}$tmp"
+    else
+        str="${str}$tmp"
+    fi
+done
+
+#根据参数执行命令
+if [ $str = -h ]
+then
+    echo "ep:source hp gs017,进入017的server目录"
+    echo "ep:source hp gg017,进入017的game目录"
+    echo "ep:hp s017,screen -r xxx"
+    echo "ep:hp g017,gdb attach xx"
+    echo "ep:hp m017,登录 monog"
+    echo "ep:hp p017,ps -aux|grep p017"
+
+elif [ $str = g ] #gdb attach xx  或  gab ./gg xxx
+then
+    #    user=$(whoami)
+    #curPwd=$(pwd)
+    #path1="${path1}p${num}a"
+
+    #    if [ $user != "root" ] #切换成root
+    #    then
+    #        su root
+    #        expect "Password:"
+    #        send "fy123456\r"
+    #    elif [ curPwd != "${path0}${path1}${path2}" ] #进入server目录
+    #    then
+    #        cd ${path0}${path1}${path2}
+    #    fi
+
+    #再检验用户是否是root
+    #    if [ $(whoami) != "root" ]
+    #    then
+    #        echo "change root user error"
+    #        exit
+    #    fi
+
+    #尝试启动进程
+    #./start.sh
+    #if [ $? != 0 ]
+    #then
+    #echo "===./start.sh error==="
+    #exit
+    #fi
+
+    #使用gdb
+    curPwd=$(pwd)
+    curPwd="$curPwd""/gg"
+
+    ret=($(ps aux|grep $curPwd |awk '{print $2 "\t" $11}'))
+    for(( i = 0; i < ${#ret[*]}; i = i + 1 )) 
+    do
+        if [ ${ret[i]} == $curPwd ]
+        then
+            gpid=${ret[i - 1]}
+            break
+        fi
+    done
+
+    if [ ! $gpid ]
+    then
+        echo "===gdb attach error or not in server dir ==="
+        exit
+    else
+        gdb attach $gpid
+    fi
+
+elif [ $str = gs ] #进入server目录
+then
+    path1="${path1}p${num}a"
+    cd ${path0}${path1}${path2} 
+
+elif [ $str = gg ] #进入game目录
+then
+    path1="${path1}p${num}a"
+    cd ${path0}${path1}${path2}${path3}
+
+elif [ $str = s ] #screen -r xxx
+then
+    t="fytx2_test_p""$num""a_gg"
+    ret=($(ps aux|grep $t |awk '{print $2}'))
+
+    if [ ${#ret[*]} != 0 ]
+    then
+        echo ${ret[0]}
+        screen -r ${ret[0]}
+    else
+        echo "===没启动==="
+    fi
+
+elif [ $str = m ] #mongo
+then
+    path1="${path1}p${num}a"
+    dbPath="${path0}${path1}${path2}${path2}/game_cfg.json"
+    ret=($(cat $dbPath | grep mongo |awk '{print $2}'))
+
+    if [ ${#ret[*]} != 0 ]
+    then
+        string="${ret[0]}"
+        echo ${string:1:${#string} - 3} #要把前后的双引号去掉
+        mongo ${string:1:${#string} - 3}
+    else
+        echo "===打开db error==="
+    fi
+
+elif [ $str = p ] #ps
+then
+    ps -aux|grep "${num}"
+    if [ $? != 0 ]
+    then
+        echo "===ps error==="
+    fi
+else
+    echo === option error ===
+    exit
+fi
+
+
