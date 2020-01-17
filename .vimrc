@@ -47,6 +47,9 @@ set shiftwidth=4
 set nocompatible
 set expandtab
 
+"一键保存"
+:inoremap <C-[> <ESC><S-:>w<CR>
+
 "自动补全
 
 :inoremap ( ()<ESC>i
@@ -77,7 +80,6 @@ function! ClosePair(char)
         return a:char
 
     endif
-
 endfunction
 
 
@@ -98,7 +100,7 @@ map <F7> :colorscheme<CR>
 "a.vim"
 map <C-y> <S-:>A<CR>
 "水平"
-""map 8 <S-:>AV<CR> 
+map <C-u> <S-:>AV<CR> 
 "垂直"
 ""map 9 <S-:>AS<CR>
 
@@ -109,5 +111,7 @@ let g:ctrlp_by_filename = 1
 let g:ctrlp_switch_buffer = 'et'
 "忽略的目录"
 set wildignore+=*/net/*
+set wildignore+=*/obj/*
 "x 水平 v 垂直"
+
 set nocp
