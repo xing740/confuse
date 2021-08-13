@@ -1,8 +1,8 @@
 syntax enable "高亮
 colorscheme mon2
 ""colorscheme evening
-"set foldmethod=syntax
-"set mouse=a
+""set foldmethod=syntax
+""set mouse=a
 
 "在新机器配置时，要删除vim中plugged中的插件，再重新安装
 
@@ -10,6 +10,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'https://github.com/yongge666/change-colorscheme.git'
 Plug 'https://github.com/vim-scripts/a.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'https://github.com/pangloss/vim-javascript.git'
+Plug 'https://github.com/leafgarland/typescript-vim'
+Plug 'w0rp/ale'
+"Plug 'https://github.com/bling/vim-airline'
+
 ""Plug 'scrooloose/nerdcommenter'
 call plug#end()
 set cmdheight=1
@@ -24,6 +30,9 @@ set cmdheight=1
 "显示正在编译的文件名"
 set statusline+=%f
 set laststatus=2
+"搜索到的字符显示高亮
+set hlsearch
+set relativenumber
 
 "忽略大小写"
 set ic
@@ -48,7 +57,8 @@ set nocompatible
 set expandtab
 
 "一键保存"
-:inoremap <C-[> <ESC><S-:>w<CR>
+:imap <C-]> <ESC><S-:>w<CR>
+:map <C-]> <ESC><S-:>w<CR>
 
 "自动补全
 
@@ -115,3 +125,39 @@ set wildignore+=*/obj/*
 "x 水平 v 垂直"
 
 set nocp
+
+let g:ackprg = 'ag --nogroup --nocolor --column --ignore-dir={tags,game.vcxproj,obj,game.vcxproj.filters,nedmalloc,threadpool,zlib,net}'
+"区分大小写
+let g:ackprg = 'ag --nogroup --nocolor --column --smart-case --ignore-dir={tags,game.vcxproj,obj,game.vcxproj.filters,nedmalloc,threadpool,zlib,net}'
+"全局搜索快捷键"
+map <C-f> :Ack<space>
+
+
+"ale"
+"显示状态栏+不需要高亮行
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+""错误和警告标志
+let g:ale_sign_error = 'x'
+let g:ale_sign_warning = '!'
+""文件保存时，显示警告
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_linters_explicit = 1
+
+let g:ale_linters = {
+            \   'cpp': ['g++'],
+            \  }
+" C++ 配置检查参数
+let g:ale_cpp_cc_options = '-std=c++14 -I/data/lsfz_test_s001a/server/svr_source/common -I/data/lsfz_test_s001a/server/svr_source/game_def -I/usr/local/include -I/usr/local/include/mongo'
+
+nmap <silent> <C-j> <Plug>(ale_next)                                                                                                                                                    
+"autojump"
+""[[ -s /home/xing/.autojump/etc/profile.d/autojump.sh ]] && source /home/xing/.autojump/etc/profile.d/autojump.sh
+
+
+""批量注释
+""ctrl+v  选择   I    输入注释符   esc
+""ctrl+v  选择   d
+
+"比较不同:vim -d f1 f2  已打开一个:vert diffsplit f3  都打开了,分别输入diffthis   更新diffupdate"

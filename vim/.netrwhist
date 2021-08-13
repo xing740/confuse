@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/xing/trunk/jjzc/build'
+let g:netrw_dirhist_1='/home/xing/vimcfg/vim/plugged/ale/ale_linters'
+let g:netrw_dirhist_0='/home/xing/trunk/jjzc/build/SDK'
+let g:netrw_dirhist_9='/home/xing/trunk/jjzc/build'
+let g:netrw_dirhist_8='/data/py_robot/python'
+let g:netrw_dirhist_7='/data/lsfz_test_s001a/server/server.log'
+let g:netrw_dirhist_6='/data/lsfz_test_s001a/server/mori/svr_source/game_def'
+let g:netrw_dirhist_5='/data/lsfz_test_s001a/server/gonghui/svr_source/game_def'
+let g:netrw_dirhist_4='/home/xing/vimcfg/vim/plugged/ale/ale_linters/python'
+let g:netrw_dirhist_3='/home/xing/vimcfg/vim/plugged/lightline.vim/doc'
